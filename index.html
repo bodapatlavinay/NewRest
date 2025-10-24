@@ -23,7 +23,6 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    /* glass cards */
     .glass {
       backdrop-filter: blur(12px);
       background: rgba(15,23,42,0.6);
@@ -34,7 +33,6 @@
       background: rgba(15,23,42,0.8);
     }
 
-    /* gradient text */
     .gtext {
       background: linear-gradient(90deg,#6366f1,#8b5cf6,#f59e0b);
       -webkit-background-clip:text;
@@ -42,7 +40,6 @@
       color: transparent;
     }
 
-    /* hover tilt / lift */
     .card-tilt {
       transition: transform .35s ease, box-shadow .35s ease;
     }
@@ -51,7 +48,6 @@
       box-shadow: 0 24px 48px rgba(0,0,0,0.6);
     }
 
-    /* CTA button gradient */
     .btn-gradient {
       background: linear-gradient(90deg,#6366f1,#8b5cf6,#f59e0b);
       color: #fff;
@@ -61,7 +57,6 @@
       opacity: .85;
     }
 
-    /* subtle animated blob background in hero */
     .blob {
       filter: blur(60px);
       opacity: 0.4;
@@ -85,7 +80,6 @@
       100% { transform: translate(0px,0px) scale(1); }
     }
 
-    /* vertical left social bar */
     .floating-bar a {
       transition: all .2s;
     }
@@ -94,7 +88,6 @@
       transform: translateX(4px) scale(1.05);
     }
 
-    /* project card border glow */
     .project-card {
       position: relative;
       background-clip: padding-box;
@@ -106,12 +99,7 @@
       inset: 0;
       border-radius: inherit;
       padding: 2px;
-      background: radial-gradient(
-        circle at 0% 0%,
-        rgba(99,102,241,.5) 0%,
-        rgba(251,191,36,.2) 60%,
-        transparent 80%
-      );
+      background: radial-gradient(circle at 0% 0%, rgba(99,102,241,.5) 0%, rgba(251,191,36,.2) 60%, transparent 80%);
       -webkit-mask:
         linear-gradient(#fff 0 0) content-box,
         linear-gradient(#fff 0 0);
@@ -158,29 +146,18 @@
 
 <!-- HERO -->
 <header id="home" class="relative overflow-hidden py-20">
-  <!-- animated blobs -->
   <div class="absolute -top-20 -left-10 w-72 h-72 rounded-full bg-indigo-600/30 blob"></div>
   <div class="absolute bottom-0 right-0 w-72 h-72 rounded-full bg-amber-500/20 blob2"></div>
 
   <section class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-    <!-- Left side -->
     <div data-aos="fade-right" class="relative z-10">
       <p class="uppercase tracking-[0.2em] text-xs text-slate-400 font-mono">Full Stack Engineer</p>
-      <h1 class="text-5xl font-extrabold mt-2 leading-tight gtext">
-        Vinay Kumar
-      </h1>
+      <h1 class="text-5xl font-extrabold mt-2 leading-tight gtext">Vinay Kumar</h1>
 
-      <!-- Stats row -->
       <div class="mt-4 flex flex-wrap gap-3 text-xs font-mono">
-        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">
-          3+ yrs exp
-        </span>
-        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">
-          5K+ users app
-        </span>
-        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">
-          ↓30% latency
-        </span>
+        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">3+ yrs exp</span>
+        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">5K+ users app</span>
+        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">↓30% latency</span>
       </div>
 
       <p class="mt-6 text-slate-300 text-lg">
@@ -190,12 +167,8 @@
       </p>
 
       <div class="mt-8 flex gap-4 flex-wrap">
-        <a href="#projects" class="btn-gradient px-5 py-3 rounded-xl shadow-lg shadow-indigo-900/40 font-medium">
-          View Projects
-        </a>
-        <a href="#contact" class="glass border border-white/20 px-5 py-3 rounded-xl font-medium">
-          Contact
-        </a>
+        <a href="#projects" class="btn-gradient px-5 py-3 rounded-xl shadow-lg shadow-indigo-900/40 font-medium">View Projects</a>
+        <a href="#contact" class="glass border border-white/20 px-5 py-3 rounded-xl font-medium">Contact</a>
       </div>
 
       <div class="mt-6 text-xs text-slate-400 font-mono leading-relaxed">
@@ -203,7 +176,6 @@
       </div>
     </div>
 
-    <!-- Right side: tech grid in frame -->
     <div class="relative z-10" data-aos="zoom-in">
       <div class="aspect-square rounded-2xl bg-gradient-to-br from-indigo-500 to-amber-500 p-[2px] shadow-xl card-tilt">
         <div class="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center">
@@ -470,7 +442,6 @@
         View Live →
       </a>
     </div>
-
   </div>
 </section>
 
