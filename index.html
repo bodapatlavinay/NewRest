@@ -3,129 +3,869 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vinay Kumar | Full Stack Engineer (.NET / React / Azure)</title>
+  <title>Vinay Kumar | Full Stack Engineer (.NET • React • Azure)</title>
 
   <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- AOS Animation -->
+  <!-- AOS (scroll animations) -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <style>
-    body {
-      background: linear-gradient(180deg, #0f172a, #1e293b);
-      color: #f8fafc;
-      font-family: 'Inter', sans-serif;
+  <script>
+    /* Tailwind custom theme tweaks (just colors/radii/shadows) */
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            baseDark: '#0f172a',
+            baseLight: '#f8fafc',
+            cardDark: 'rgba(15,23,42,0.6)',
+            cardDarkHover: 'rgba(15,23,42,0.8)',
+            accentStart: '#6366f1',
+            accentMid: '#8b5cf6',
+            accentEnd: '#f59e0b',
+          },
+          boxShadow: {
+            xlsoft: '0 24px 48px rgba(0,0,0,0.6)',
+            card: '0 20px 40px rgba(0,0,0,0.5)',
+          },
+          borderRadius: {
+            xl2: '1rem',
+            mega: '2rem',
+          },
+          keyframes: {
+            blob: {
+              '0%':   { transform: 'translate(0px,0px) scale(1)' },
+              '33%':  { transform: 'translate(30px,-20px) scale(1.1)' },
+              '66%':  { transform: 'translate(-20px,20px) scale(0.9)' },
+              '100%': { transform: 'translate(0px,0px) scale(1)' },
+            },
+            blob2: {
+              '0%':   { transform: 'translate(0px,0px) scale(1)' },
+              '33%':  { transform: 'translate(-40px,10px) scale(1.15)' },
+              '66%':  { transform: 'translate(20px,-30px) scale(0.85)' },
+              '100%': { transform: 'translate(0px,0px) scale(1)' },
+            },
+            pulseRing: {
+              '0%':   { transform: 'scale(0.6)', opacity: '0.6' },
+              '80%':  { transform: 'scale(1.4)', opacity: '0' },
+              '100%': { transform: 'scale(1.4)', opacity: '0' }
+            }
+          },
+          animation: {
+            blob: 'blob 8s infinite',
+            blob2: 'blob2 10s infinite',
+            pulseRing: 'pulseRing 2.5s infinite cubic-bezier(0.4,0,0.2,1)',
+          },
+        },
+      },
+      darkMode: 'class'
     }
+  </script>
+
+  <style>
+    :root {
+      --bg-dark: radial-gradient(circle at 20% 20%, rgba(99,102,241,0.15) 0%, rgba(0,0,0,0) 60%),
+                 radial-gradient(circle at 80% 30%, rgba(251,191,36,0.08) 0%, rgba(0,0,0,0) 60%),
+                 #0f172a;
+
+      --bg-light: radial-gradient(circle at 20% 20%, rgba(99,102,241,0.08) 0%, rgba(255,255,255,0) 60%),
+                  radial-gradient(circle at 80% 30%, rgba(251,191,36,0.07) 0%, rgba(255,255,255,0) 60%),
+                  #f8fafc;
+    }
+
+    body {
+      background: var(--bg-dark);
+      color: #e2e8f0;
+      font-family: 'Inter', system-ui, sans-serif;
+      transition: background .4s, color .4s;
+    }
+    body.light {
+      background: var(--bg-light);
+      color: #0f172a;
+    }
+
+    /* glass cards */
     .glass {
       backdrop-filter: blur(12px);
-      background: rgba(30, 41, 59, 0.6);
-      border-radius: 16px;
-      transition: all 0.3s ease;
+      background: rgba(15,23,42,0.6);
+      border-radius: 1rem;
+      transition: background .25s;
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    body.light .glass {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(0,0,0,.07);
     }
     .glass:hover {
-      background: rgba(30, 41, 59, 0.9);
-      transform: translateY(-4px);
+      background: rgba(15,23,42,0.8);
     }
+    body.light .glass:hover {
+      background: rgba(255,255,255,0.8);
+    }
+
+    /* gradient text */
+    .gtext {
+      background: linear-gradient(90deg,#6366f1,#8b5cf6,#f59e0b);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    /* main CTA buttons */
     .btn-gradient {
-      background: linear-gradient(90deg,#14b8a6,#6366f1,#8b5cf6);
+      background: linear-gradient(90deg,#6366f1,#8b5cf6,#f59e0b);
       color: #fff;
-      transition: 0.3s;
+      transition: .25s;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
     }
-    .btn-gradient:hover { opacity: 0.85; }
-    .hero-bg {
+    .btn-gradient:hover {
+      filter: brightness(1.05);
+    }
+    body.light .btn-gradient {
+      color: #fff;
+    }
+
+    /* card hover lift */
+    .lift-card {
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+    .lift-card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+    }
+
+    /* project border glow */
+    .project-card {
+      position: relative;
+      background-clip: padding-box;
+      border-radius: 1rem;
+    }
+    .project-card::before {
+      content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 20% 30%, rgba(79,70,229,0.2), transparent 60%),
-                  radial-gradient(circle at 80% 70%, rgba(45,212,191,0.15), transparent 70%);
-      z-index: -1;
+      border-radius: inherit;
+      padding: 2px;
+      background: radial-gradient(circle at 0% 0%, rgba(99,102,241,.5) 0%, rgba(251,191,36,.2) 60%, transparent 80%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      opacity: .4;
+      transition: opacity .25s;
     }
-    .project-card img {
-      transition: transform 0.4s ease-in-out;
+    .project-card:hover::before {
+      opacity: .9;
     }
-    .project-card:hover img {
-      transform: scale(1.05);
+
+    /* project image hover zoom */
+    .proj-img-wrap {
+      overflow: hidden;
+      border-radius: 0.5rem;
     }
-    .scroll-down {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      animation: bounce 2s infinite;
+    .proj-img-wrap img {
+      transition: transform .4s ease;
     }
-    @keyframes bounce {
-      0%,100% { transform: translate(-50%,0); }
-      50% { transform: translate(-50%,-10px); }
+    .proj-img-wrap:hover img {
+      transform: scale(1.06);
     }
+
+    /* floating social bar desktop */
+    .floating-bar a {
+      transition: all .2s;
+    }
+    .floating-bar a:hover {
+      color: #fff;
+      transform: translateX(4px) scale(1.05);
+    }
+    body.light .floating-bar a:hover {
+      color: #000;
+    }
+
+    /* mobile contact bar */
+    .mobile-contact-bar {
+      box-shadow: 0 -20px 40px rgba(0,0,0,.6);
+    }
+    body.light .mobile-contact-bar {
+      box-shadow: 0 -20px 40px rgba(0,0,0,.15);
+    }
+
+    a { text-decoration: none; }
   </style>
 </head>
 
-<body class="scroll-smooth">
-  <!-- NAVBAR -->
-  <nav class="sticky top-0 bg-slate-900/70 backdrop-blur-lg border-b border-slate-700 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-      <a href="#home" class="font-extrabold text-teal-400 text-2xl">Vinay Kumar</a>
-      <div class="hidden md:flex gap-6 text-slate-300 text-sm">
-        <a href="#about" class="hover:text-white">About</a>
-        <a href="#projects" class="hover:text-white">Projects</a>
-        <a href="#skills" class="hover:text-white">Skills</a>
-        <a href="#contact" class="hover:text-white">Contact</a>
-      </div>
-      <a href="#contact" class="hidden sm:inline-block btn-gradient px-4 py-2 rounded-full text-sm">
+<body class="scroll-smooth antialiased">
+
+<!-- =========================
+MOBILE NAV OVERLAY (hidden by default)
+========================= -->
+<div id="mobileMenu" class="fixed inset-0 z-[80] hidden">
+  <!-- backdrop -->
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleMenu()"></div>
+
+  <!-- panel -->
+  <div class="absolute right-0 top-0 h-full w-[250px] bg-slate-900 text-slate-100 flex flex-col p-6 gap-6 shadow-2xl border-l border-white/10 dark:bg-slate-900 dark:text-slate-100 light:bg-white light:text-slate-900 light:border-black/10 body-light-text">
+    <div class="flex items-center justify-between">
+      <div class="font-semibold text-base gtext">Vinay Kumar</div>
+      <button onclick="toggleMenu()" class="text-slate-400 hover:text-white text-xl font-mono">&times;</button>
+    </div>
+
+    <nav class="flex flex-col text-sm font-medium gap-4">
+      <a href="#about" onclick="toggleMenu()" class="hover:text-white">About</a>
+      <a href="#skills" onclick="toggleMenu()" class="hover:text-white">Skills</a>
+      <a href="#experience" onclick="toggleMenu()" class="hover:text-white">Experience</a>
+      <a href="#projects" onclick="toggleMenu()" class="hover:text-white">Projects</a>
+      <a href="#education" onclick="toggleMenu()" class="hover:text-white">Education</a>
+      <a href="#certs" onclick="toggleMenu()" class="hover:text-white">Certifications</a>
+      <a href="#contact" onclick="toggleMenu()" class="hover:text-white">Contact</a>
+    </nav>
+
+    <a href="#contact" onclick="toggleMenu()" class="btn-gradient text-center px-4 py-2 rounded-lg text-sm font-medium">
+      Hire Me
+    </a>
+
+    <button id="themeBtnMobile" class="text-xs font-mono text-slate-400 hover:text-white border border-white/20 rounded-lg px-3 py-2 flex items-center justify-center gap-2">
+      <span id="themeIconMobile">🌙</span>
+      <span id="themeTextMobile">Dark</span>
+    </button>
+  </div>
+</div>
+
+<!-- =========================
+FLOATING SOCIAL BAR (desktop)
+========================= -->
+<div class="hidden lg:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col items-start gap-4 text-slate-400 text-xs font-mono floating-bar z-[60]">
+  <a href="mailto:bodapatlavinaykumarreddy@gmail.com" class="hover:text-white flex items-center gap-2">
+    <span>✉</span><span>Email</span>
+  </a>
+  <a href="https://www.linkedin.com/in/vinayreddy77" target="_blank" class="hover:text-white flex items-center gap-2">
+    <span>in</span><span>LinkedIn</span>
+  </a>
+  <a href="https://github.com/bodapatlavinay" target="_blank" class="hover:text-white flex items-center gap-2">
+    <span>{"/>"}</span><span>GitHub</span>
+  </a>
+  <a href="VinaYresume.pdf" class="hover:text-white border border-white/20 rounded-md px-2 py-1 flex items-center gap-2">
+    <span>📄</span><span>Resume</span>
+  </a>
+</div>
+
+<!-- =========================
+BOTTOM CONTACT BAR (mobile only)
+========================= -->
+<div class="fixed bottom-0 left-0 right-0 z-[50] lg:hidden bg-slate-900/70 backdrop-blur-md border-t border-white/10 mobile-contact-bar text-[11px] text-slate-200 flex justify-around py-2 font-mono">
+  <a href="mailto:bodapatlavinaykumarreddy@gmail.com" class="flex flex-col items-center">
+    <span>✉</span>
+    <span>Email</span>
+  </a>
+  <a href="https://www.linkedin.com/in/vinayreddy77" target="_blank" class="flex flex-col items-center">
+    <span>in</span>
+    <span>LinkedIn</span>
+  </a>
+  <a href="https://github.com/bodapatlavinay" target="_blank" class="flex flex-col items-center">
+    <span>{"/>"}</span>
+    <span>GitHub</span>
+  </a>
+</div>
+
+<!-- =========================
+NAVBAR
+========================= -->
+<nav class="sticky top-0 z-[70] bg-slate-900/60 backdrop-blur-xl border-b border-white/10 text-slate-200 dark:bg-slate-900/60 dark:text-slate-200 light:bg-white/60 light:text-slate-800 light:border-black/10 transition-colors">
+  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+    <a href="#home" class="font-extrabold gtext text-xl sm:text-2xl tracking-tight">Vinay Kumar</a>
+
+    <!-- desktop nav -->
+    <div class="hidden md:flex items-center gap-6 text-[13px] font-medium text-slate-300 dark:text-slate-300 light:text-slate-700">
+      <a href="#about" class="hover:text-white dark:hover:text-white light:hover:text-black">About</a>
+      <a href="#skills" class="hover:text-white dark:hover:text-white light:hover:text-black">Skills</a>
+      <a href="#experience" class="hover:text-white dark:hover:text-white light:hover:text-black">Experience</a>
+      <a href="#projects" class="hover:text-white dark:hover:text-white light:hover:text-black">Projects</a>
+      <a href="#education" class="hover:text-white dark:hover:text-white light:hover:text-black">Education</a>
+      <a href="#certs" class="hover:text-white dark:hover:text-white light:hover:text-black">Certifications</a>
+      <a href="#contact" class="hover:text-white dark:hover:text-white light:hover:text-black">Contact</a>
+    </div>
+
+    <div class="hidden md:flex items-center gap-3">
+      <a href="#contact" class="btn-gradient px-4 py-2 rounded-full text-[12px] font-semibold shadow-xl shadow-black/50 whitespace-nowrap">
         Hire Me
       </a>
-    </div>
-  </nav>
 
-  <!-- HERO -->
-  <header id="home" class="relative py-24 text-center overflow-hidden">
-    <div class="hero-bg"></div>
-    <h1 data-aos="fade-up" class="text-5xl sm:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-indigo-500">
-      Full Stack Engineer
-    </h1>
-    <p class="mt-6 text-slate-300 text-lg max-w-2xl mx-auto">Building scalable web apps with .NET, React, and Azure — designed for performance and cloud scalability.</p>
-    <div class="mt-8 flex justify-center gap-4">
-      <a href="#projects" class="btn-gradient px-6 py-3 rounded-xl shadow-lg">View Work</a>
-      <a href="#contact" class="glass border border-white/20 px-6 py-3 rounded-xl shadow-sm">Contact</a>
+      <!-- theme toggle desktop -->
+      <button id="themeBtnDesktop" class="text-[11px] font-mono text-slate-400 hover:text-white dark:hover:text-white light:hover:text-black border border-white/20 rounded-lg px-3 py-2 flex items-center gap-2">
+        <span id="themeIconDesktop">🌙</span>
+        <span id="themeTextDesktop">Dark</span>
+      </button>
     </div>
-    <div class="scroll-down text-slate-400 text-sm">↓ Scroll Down</div>
-  </header>
 
-  <!-- PROJECTS -->
-  <section id="projects" class="max-w-7xl mx-auto px-6 py-20">
-    <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-500 mb-10 text-center">Projects</h2>
-    <div class="grid md:grid-cols-2 gap-10">
-      <div class="project-card glass p-6 border border-slate-700 rounded-xl">
-        <img src="https://placehold.co/600x400?text=Modern+Dashboard" alt="Project" class="rounded-lg w-full h-48 object-cover">
-        <h3 class="text-xl font-semibold text-teal-400 mt-4">SaaS Analytics Dashboard</h3>
-        <p class="text-slate-300 mt-2 text-sm">Real-time user insights, secure APIs, and role-based access with Azure-hosted microservices.</p>
+    <!-- mobile menu button -->
+    <button onclick="toggleMenu()" class="md:hidden flex items-center justify-center w-10 h-10 rounded-lg border border-white/20 text-slate-300 hover:text-white hover:border-white/40 dark:border-white/20 light:border-black/20 light:text-slate-800 light:hover:text-black light:hover:border-black/40">
+      <span class="block w-4 h-[2px] bg-current relative before:content-[''] before:absolute before:-top-[6px] before:w-4 before:h-[2px] before:bg-current after:content-[''] after:absolute after:top-[6px] after:w-4 after:h-[2px] after:bg-current"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- =========================
+HERO / INTRO
+========================= -->
+<header id="home" class="relative overflow-hidden py-20 sm:py-24">
+  <!-- animated blobs -->
+  <div class="absolute -top-20 -left-10 w-72 h-72 rounded-full bg-indigo-600/30 blur-[60px] opacity-40 animate-blob"></div>
+  <div class="absolute bottom-0 right-0 w-72 h-72 rounded-full bg-amber-500/20 blur-[60px] opacity-30 animate-blob2"></div>
+
+  <section class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <!-- intro text -->
+    <div data-aos="fade-right" class="relative z-10 text-slate-200 dark:text-slate-200 light:text-slate-800 transition-colors">
+      <p class="uppercase tracking-[0.2em] text-[10px] sm:text-[11px] text-slate-400 font-mono flex items-center gap-2">
+        <span class="relative flex items-center justify-center">
+          <span class="absolute inline-flex h-full w-full rounded-full bg-indigo-500/30 animate-pulseRing"></span>
+          <span class="relative inline-flex rounded-full bg-indigo-500 h-2 w-2 shadow-[0_0_10px_rgba(99,102,241,0.8)]"></span>
+        </span>
+        Full Stack Engineer
+      </p>
+
+      <h1 class="text-4xl sm:text-5xl font-extrabold mt-3 leading-tight gtext">
+        Vinay Kumar
+      </h1>
+
+      <!-- mini stats -->
+      <div class="mt-5 flex flex-wrap gap-3 text-[11px] font-mono">
+        <span class="glass bg-slate-900/40 dark:bg-slate-900/40 light:bg-white/40 border border-white/10 dark:border-white/10 light:border-black/10 rounded-md px-3 py-2 text-slate-200 dark:text-slate-200 light:text-slate-800">
+          3+ yrs exp
+        </span>
+        <span class="glass bg-slate-900/40 dark:bg-slate-900/40 light:bg-white/40 border border-white/10 dark:border-white/10 light:border-black/10 rounded-md px-3 py-2 text-slate-200 dark:text-slate-200 light:text-slate-800">
+          5K+ users app
+        </span>
+        <span class="glass bg-slate-900/40 dark:bg-slate-900/40 light:bg-white/40 border border-white/10 dark:border-white/10 light:border-black/10 rounded-md px-3 py-2 text-slate-200 dark:text-slate-200 light:text-slate-800">
+          ↓30% latency
+        </span>
       </div>
-      <div class="project-card glass p-6 border border-slate-700 rounded-xl">
-        <img src="https://placehold.co/600x400?text=Healthcare+Cloud+Portal" alt="Project" class="rounded-lg w-full h-48 object-cover">
-        <h3 class="text-xl font-semibold text-teal-400 mt-4">Healthcare Cloud Platform</h3>
-        <p class="text-slate-300 mt-2 text-sm">HIPAA-compliant cloud portal with patient engagement, analytics, and integrated React spa interface.</p>
+
+      <p class="mt-6 text-slate-300 dark:text-slate-300 light:text-slate-700 text-base sm:text-lg leading-relaxed max-w-xl">
+        I build scalable products using
+        <span class="font-semibold text-white dark:text-white light:text-slate-900">.NET Core, React, Angular, SQL Server, and Azure</span>.
+        I’ve shipped secure microservices, real-time dashboards, and cloud-hosted CRM platforms with Docker and Kubernetes.
+      </p>
+
+      <div class="mt-8 flex gap-4 flex-wrap">
+        <a href="#projects" class="btn-gradient px-5 py-3 rounded-xl shadow-xl text-[14px] font-semibold">
+          View Projects
+        </a>
+        <a href="#contact" class="glass border border-white/20 dark:border-white/20 light:border-black/10 px-5 py-3 rounded-xl text-[14px] font-semibold text-slate-200 dark:text-slate-200 light:text-slate-800">
+          Contact
+        </a>
+      </div>
+
+      <div class="mt-6 text-[11px] text-slate-400 dark:text-slate-400 light:text-slate-600 font-mono leading-relaxed">
+        .NET Core • Spring Boot • Angular 16 • React • Azure • Docker • Kubernetes • SQL Server
+      </div>
+    </div>
+
+    <!-- tech tile -->
+    <div class="relative z-10" data-aos="zoom-in">
+      <div class="rounded-2xl bg-gradient-to-br from-indigo-500 to-amber-500 p-[2px] shadow-xl shadow-black/50">
+        <div class="w-full h-full rounded-2xl bg-slate-900 dark:bg-slate-900 light:bg-white flex items-center justify-center">
+          <div class="grid grid-cols-3 gap-6 p-10 opacity-95">
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server"/>
+            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"/>
+          </div>
+        </div>
       </div>
     </div>
   </section>
+</header>
 
-  <!-- CONTACT -->
-  <section id="contact" class="py-20 bg-slate-800/70 text-center">
-    <h2 class="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-pink-500 mb-6">Get in Touch</h2>
-    <p class="text-slate-300 mb-8">Let’s collaborate and build high-quality, cloud-ready applications.</p>
-    <div class="flex flex-wrap justify-center gap-4">
-      <a href="mailto:bodapatlavinaykumarreddy@gmail.com" class="btn-gradient px-6 py-3 rounded-xl text-sm">Email</a>
-      <a href="https://linkedin.com/in/vinayreddy77" target="_blank" class="glass px-6 py-3 rounded-xl text-sm">LinkedIn</a>
-      <a href="https://github.com/bodapatlavinay" target="_blank" class="glass px-6 py-3 rounded-xl text-sm">GitHub</a>
+<!-- =========================
+ABOUT
+========================= -->
+<section id="about" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
+  <div class="grid md:grid-cols-3 gap-8">
+    <div class="md:col-span-2">
+      <h2 class="text-3xl font-bold mb-4 flex items-center gap-3 text-indigo-400 dark:text-indigo-400 light:text-indigo-600">
+        <span>About Me</span>
+        <span class="text-[10px] font-mono text-slate-400 dark:text-slate-400 light:text-slate-600 bg-slate-800/60 dark:bg-slate-800/60 light:bg-slate-200/70 border border-white/10 dark:border-white/10 light:border-black/10 rounded px-2 py-1">
+          Available · Full-time / Contract
+        </span>
+      </h2>
+
+      <p class="text-base sm:text-lg text-slate-300 dark:text-slate-300 light:text-slate-700 leading-relaxed">
+        I’m a Full Stack Engineer who ships production-ready features end-to-end:
+        backend APIs, auth, database tuning, CI/CD, and polished UI.
+        I’ve built secure .NET Core / Angular platforms, microservices in Spring Boot,
+        analytics dashboards in React + Power BI, and Azure-hosted CRM applications
+        used by thousands of users.
+      </p>
+
+      <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm text-slate-300 dark:text-slate-300 light:text-slate-700">
+        <li>⚡ Reduced API latency ~30% with SQL/index tuning</li>
+        <li>☁️ Deployed containerized services to Azure with autoscaling</li>
+        <li>🔒 RBAC, JWT, protected routes, role guards</li>
+        <li>📈 Built dashboards and forecasting models (92%+ accuracy)</li>
+      </ul>
     </div>
-  </section>
 
-  <footer class="py-6 text-center text-slate-500 text-sm">© 2025 Vinay Kumar | Redesigned with TailwindCSS ✦</footer>
+    <div class="glass rounded-2xl p-6 lift-card" data-aos="fade-left">
+      <h3 class="font-semibold mb-3 text-amber-300 dark:text-amber-300 light:text-amber-500 text-sm uppercase tracking-wide">
+        Quick Info
+      </h3>
+      <div class="space-y-2 text-sm text-slate-300 dark:text-slate-300 light:text-slate-800">
+        <p><span class="font-medium text-white dark:text-white light:text-slate-900">Location:</span> Boston, MA</p>
+        <p><span class="font-medium text-white dark:text-white light:text-slate-900">Experience:</span> 3+ years</p>
+        <p><span class="font-medium text-white dark:text-white light:text-slate-900">Open to:</span> Remote · Hybrid · CTH</p>
+      </div>
+      <a href="#contact" class="mt-5 inline-block btn-gradient px-4 py-2 rounded-lg text-[13px] font-medium shadow-xl shadow-black/50">
+        Let’s Talk
+      </a>
+    </div>
+  </div>
+</section>
 
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>AOS.init({ duration: 800, once: true });</script>
+<!-- =========================
+SKILLS
+========================= -->
+<section id="skills" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-10 flex items-center gap-3 text-purple-400 dark:text-purple-400 light:text-purple-600">
+    <span>Tech Stack</span>
+    <span class="text-[10px] font-mono text-slate-400 dark:text-slate-400 light:text-slate-600 bg-slate-800/60 dark:bg-slate-800/60 light:bg-slate-200/70 border border-white/10 dark:border-white/10 light:border-black/10 rounded px-2 py-1">
+      Primary Tools
+    </span>
+  </h2>
+
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
+    <!-- Skill tile -->
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" class="h-10 mx-auto" alt=".NET Core"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        .NET Core
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="h-10 mx-auto" alt="React"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        React
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" class="h-10 mx-auto" alt="Angular"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        Angular 16
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" class="h-10 mx-auto" alt="Azure"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        Azure
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="h-10 mx-auto" alt="Docker"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        Docker
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" class="h-10 mx-auto" alt="Kubernetes"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        Kubernetes
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" class="h-10 mx-auto" alt="SQL Server"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        SQL Server
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" class="h-10 mx-auto" alt="Java"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        Java / Spring Boot
+      </p>
+    </div>
+
+    <div class="glass rounded-xl p-5 lift-card text-center">
+      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="h-10 mx-auto" alt="Git"/>
+      <p class="mt-3 text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 opacity-80">
+        Git / CI/CD
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+EXPERIENCE
+========================= -->
+<section id="experience" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-10 flex items-center gap-3 text-rose-400 dark:text-rose-400 light:text-rose-500">
+    <span>Experience</span>
+    <span class="text-[10px] font-mono text-slate-400 dark:text-slate-400 light:text-slate-600 bg-slate-800/60 dark:bg-slate-800/60 light:bg-slate-200/70 border border-white/10 dark:border-white/10 light:border-black/10 rounded px-2 py-1">
+      Most Recent
+    </span>
+  </h2>
+
+  <div class="space-y-6">
+    <div class="glass p-6 rounded-2xl lift-card">
+      <div class="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 class="font-semibold text-xl text-purple-300 dark:text-purple-300 light:text-purple-700">
+          Software Engineer @ Cortracker360
+        </h3>
+        <span class="text-slate-400 dark:text-slate-400 light:text-slate-600 text-xs font-mono">
+          Jul 2024 – Present · Novi, MI
+        </span>
+      </div>
+      <ul class="mt-4 list-disc list-inside text-slate-300 dark:text-slate-300 light:text-slate-700 text-sm leading-relaxed">
+        <li>Built cloud CRM using ASP.NET Core + Angular 16 for 5K+ users.</li>
+        <li>Cut API latency ~30% via Azure SQL index tuning and pagination.</li>
+        <li>Implemented RBAC, JWT auth flows, guarded routes, refresh tokens.</li>
+        <li>Containerized services with Docker, deployed to Azure App Services with autoscaling + health probes.</li>
+        <li>Owned CI/CD in Azure DevOps (build/test pipelines, release gates, approvals).</li>
+      </ul>
+    </div>
+
+    <div class="glass p-6 rounded-2xl lift-card">
+      <div class="flex flex-wrap items-baseline justify-between gap-2">
+        <h3 class="font-semibold text-xl text-purple-300 dark:text-purple-300 light:text-purple-700">
+          Software Engineer @ Lance Soft Technology Services
+        </h3>
+        <span class="text-slate-400 dark:text-slate-400 light:text-slate-600 text-xs font-mono">
+          Jan 2021 – Aug 2022 · India
+        </span>
+      </div>
+      <ul class="mt-4 list-disc list-inside text-slate-300 dark:text-slate-300 light:text-slate-700 text-sm leading-relaxed">
+        <li>Built Spring Boot microservices and React front ends for enterprise apps.</li>
+        <li>Optimized Oracle/MS SQL queries, improving runtime by ~20%.</li>
+        <li>Secured APIs with Spring Security + JWT.</li>
+        <li>Automated CI/CD using Azure DevOps and GitHub Actions.</li>
+        <li>Delivered features every sprint in Agile/Scrum environment.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+PROJECTS
+========================= -->
+<section id="projects" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-10 flex items-center gap-3 text-green-400 dark:text-green-400 light:text-green-600">
+    <span>Projects</span>
+    <span class="text-[10px] font-mono text-slate-400 dark:text-slate-400 light:text-slate-600 bg-slate-800/60 dark:bg-slate-800/60 light:bg-slate-200/70 border border-white/10 dark:border-white/10 light:border-black/10 rounded px-2 py-1">
+      Selected Work
+    </span>
+  </h2>
+
+  <div class="grid md:grid-cols-2 gap-10">
+    <!-- Student Management System -->
+    <div class="project-card glass p-6 rounded-2xl lift-card">
+      <div class="proj-img-wrap rounded-lg mb-4 w-full h-40 bg-slate-800/50 dark:bg-slate-800/50 light:bg-slate-200/50 flex items-center justify-center overflow-hidden">
+        <img
+          src="https://www.powerschool.com/wp-content/uploads/2025/02/student-management-system-blog-thumbnail-1432625-1.webp"
+          class="w-full h-full object-cover object-center"
+          alt="Student Management System"
+        />
+      </div>
+      <h3 class="text-xl font-semibold text-amber-300 dark:text-amber-300 light:text-amber-500">
+        Student Management System
+      </h3>
+      <p class="text-slate-300 dark:text-slate-300 light:text-slate-700 mt-2 text-sm leading-relaxed">
+        ASP.NET MVC, C#, SQL Server, Azure. Role-based auth, analytics dashboards for performance tracking,
+        CI/CD deployment to Azure for continuous delivery.
+      </p>
+      <a
+        href="https://github.com/bodapatlavinay"
+        target="_blank"
+        class="mt-4 inline-block btn-gradient px-4 py-2 rounded-lg text-sm font-medium shadow-xl shadow-black/50"
+      >
+        View Project →
+      </a>
+    </div>
+
+    <!-- Healthcare Web Application -->
+    <div class="project-card glass p-6 rounded-2xl lift-card">
+      <div class="proj-img-wrap rounded-lg mb-4 w-full h-40 bg-slate-800/50 dark:bg-slate-800/50 light:bg-slate-200/50 flex items-center justify-center overflow-hidden">
+        <img
+          src="https://imageio.forbes.com/specials-images/imageserve/651bbeb1c78cc403f92a6abd/The-10-Biggest-Trends-Revolutionizing-Healthcare-In-2024/0x0.jpg?crop=2500,1405,x0,y0,safe&height=399&width=711&fit=bounds"
+          class="w-full h-full object-cover object-center"
+          alt="Healthcare App"
+        />
+      </div>
+      <h3 class="text-xl font-semibold text-amber-300 dark:text-amber-300 light:text-amber-500">
+        Healthcare Web Application
+      </h3>
+      <p class="text-slate-300 dark:text-slate-300 light:text-slate-700 mt-2 text-sm leading-relaxed">
+        .NET Core, Angular, SQL Server, Docker. HIPAA-aware patient management system with secure login,
+        patient–doctor chat, billing, and lab results. Containerized for scalable deployment.
+      </p>
+      <a
+        href="https://github.com/bodapatlavinay"
+        target="_blank"
+        class="mt-4 inline-block btn-gradient px-4 py-2 rounded-lg text-sm font-medium shadow-xl shadow-black/50"
+      >
+        View Project →
+      </a>
+    </div>
+
+    <!-- Sales Insights Dashboard -->
+    <div class="project-card glass p-6 rounded-2xl lift-card">
+      <div class="proj-img-wrap rounded-lg mb-4 w-full h-40 bg-slate-800/50 dark:bg-slate-800/50 light:bg-slate-200/50 flex items-center justify-center overflow-hidden">
+        <img
+          src="https://cdn.prod.website-files.com/645258dee17c72222bca47d8/66c48c8af399590bff735f6a_dbc1b969-0028-4499-9d0a-ffa5ba3e3b6b.png"
+          class="w-full h-full object-cover object-center"
+          alt="Sales Insights Dashboard"
+        />
+      </div>
+      <h3 class="text-xl font-semibold text-amber-300 dark:text-amber-300 light:text-amber-500">
+        Sales Insights Dashboard
+      </h3>
+      <p class="text-slate-300 dark:text-slate-300 light:text-slate-700 mt-2 text-sm leading-relaxed">
+        React, Power BI, SQL, Python. Interactive dashboards and forecasting (~92% accuracy on quarterly
+        trends) that cut manual reporting by ~50%.
+      </p>
+      <a
+        href="https://github.com/bodapatlavinay"
+        target="_blank"
+        class="mt-4 inline-block btn-gradient px-4 py-2 rounded-lg text-sm font-medium shadow-xl shadow-black/50"
+      >
+        View Project →
+      </a>
+    </div>
+
+    <!-- FitTribe -->
+    <div class="project-card glass p-6 rounded-2xl lift-card">
+      <div class="proj-img-wrap rounded-lg mb-4 w-full h-40 bg-slate-800/50 dark:bg-slate-800/50 light:bg-slate-200/50 flex items-center justify-center overflow-hidden">
+        <img
+          src="https://t3.ftcdn.net/jpg/04/29/35/62/360_F_429356296_CVQ5LkC6Pl55kUNLqLisVKgTw9vjyif1.jpg"
+          class="w-full h-full object-cover object-center"
+          alt="FitTribe"
+        />
+      </div>
+      <h3 class="text-xl font-semibold text-amber-300 dark:text-amber-300 light:text-amber-500">
+        FitTribe (In Progress)
+      </h3>
+      <p class="text-slate-300 dark:text-slate-300 light:text-slate-700 mt-2 text-sm leading-relaxed">
+        React, Tailwind, Node.js. Social fitness app with progress tracking, team challenges,
+        and leaderboard-style dashboards. Built for engagement and community motivation.
+      </p>
+      <a
+        href="https://github.com/bodapatlavinay"
+        target="_blank"
+        class="mt-4 inline-block btn-gradient px-4 py-2 rounded-lg text-sm font-medium shadow-xl shadow-black/50"
+      >
+        View Project →
+      </a>
+    </div>
+
+    <!-- Gas Station / Auto Repair Website -->
+    <div class="project-card glass p-6 rounded-2xl lift-card md:col-span-2">
+      <div class="proj-img-wrap rounded-lg mb-4 w-full h-48 bg-slate-800/50 dark:bg-slate-800/50 light:bg-slate-200/50 flex items-center justify-center overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1607962837356-a4f9675a06c1?fit=crop&w=1200&q=80"
+          class="w-full h-full object-cover object-center"
+          alt="Gas Station / Auto Repair Website"
+        />
+      </div>
+      <h3 class="text-xl font-semibold text-amber-300 dark:text-amber-300 light:text-amber-500">
+        Auto Care Service & Gas Station Website
+      </h3>
+      <p class="text-slate-300 dark:text-slate-300 light:text-slate-700 mt-2 text-sm leading-relaxed">
+        Fully responsive business website for a local gas station and auto repair shop. Built with
+        TailwindCSS and HTML5, featuring optimized service pages, contact options, and clear call-to-action
+        sections to drive real customers. Focused on mobile-first layout, trust, and search visibility.
+      </p>
+      <p class="text-slate-400 dark:text-slate-400 light:text-slate-500 text-[11px] font-mono mt-2">
+        Tech: HTML5 · TailwindCSS · Responsive Design · SEO Optimization
+      </p>
+      <a
+        href="https://bodapatlavinay.github.io/GasStationWebsite/"
+        target="_blank"
+        class="mt-4 inline-block btn-gradient px-4 py-2 rounded-lg text-sm font-medium shadow-xl shadow-black/50"
+      >
+        View Live →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+EDUCATION
+========================= -->
+<section id="education" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-10 text-cyan-400 dark:text-cyan-400 light:text-cyan-600">
+    Education
+  </h2>
+
+  <div class="space-y-6">
+    <div class="glass p-6 rounded-2xl lift-card">
+      <h3 class="font-semibold text-xl text-purple-300 dark:text-purple-300 light:text-purple-700">
+        Master of Science in Computer and Information Technology
+      </h3>
+      <span class="text-slate-300 dark:text-slate-300 light:text-slate-700 text-sm">
+        Lindsey Wilson College · KY, USA · 2024
+      </span>
+    </div>
+
+    <div class="glass p-6 rounded-2xl lift-card">
+      <h3 class="font-semibold text-xl text-purple-300 dark:text-purple-300 light:text-purple-700">
+        Bachelor of Technology in Mechanical Engineering
+      </h3>
+      <span class="text-slate-300 dark:text-slate-300 light:text-slate-700 text-sm">
+        Kommuri Pratap Reddy Institute of Technology · Hyderabad, India · 2021
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+CERTIFICATIONS
+========================= -->
+<section id="certs" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-10 text-pink-400 dark:text-pink-400 light:text-pink-600">
+    Certifications
+  </h2>
+
+  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 text-sm">
+    <div class="glass p-5 rounded-xl lift-card text-slate-300 dark:text-slate-300 light:text-slate-800">
+      Java Spring Boot Microservices with Spring Cloud – Udemy
+    </div>
+    <div class="glass p-5 rounded-xl lift-card text-slate-300 dark:text-slate-300 light:text-slate-800">
+      React – The Complete Guide (Hooks, Redux, TypeScript) – Udemy
+    </div>
+    <div class="glass p-5 rounded-xl lift-card text-slate-300 dark:text-slate-300 light:text-slate-800">
+      Angular 16: From Zero to Hero – Udemy
+    </div>
+    <div class="glass p-5 rounded-xl lift-card text-slate-300 dark:text-slate-300 light:text-slate-800">
+      Docker and Kubernetes: The Complete Guide – Udemy
+    </div>
+    <div class="glass p-5 rounded-xl lift-card text-slate-300 dark:text-slate-300 light:text-slate-800">
+      Azure DevOps Fundamentals for Developers – Coursera
+    </div>
+    <div class="glass p-5 rounded-xl lift-card text-slate-300 dark:text-slate-300 light:text-slate-800">
+      Data Structures and Algorithms in Java – Coursera
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+CONTACT
+========================= -->
+<section id="contact" class="max-w-7xl mx-auto px-6 py-24 text-center" data-aos="fade-up">
+  <h2 class="text-3xl font-bold mb-4 text-lime-400 dark:text-lime-400 light:text-lime-600">
+    Get in Touch
+  </h2>
+  <p class="text-slate-300 dark:text-slate-300 light:text-slate-700 mb-8 max-w-xl mx-auto">
+    Let’s build something high-impact. Email me or connect through LinkedIn / GitHub.
+  </p>
+
+  <div class="flex flex-col sm:flex-row justify-center gap-4">
+    <a href="mailto:bodapatlavinaykumarreddy@gmail.com" class="btn-gradient px-6 py-3 rounded-xl font-semibold text-[14px] shadow-xl shadow-black/50">
+      Email
+    </a>
+    <a href="https://www.linkedin.com/in/vinayreddy77" target="_blank" class="glass px-6 py-3 rounded-xl border border-white/20 dark:border-white/20 light:border-black/10 font-semibold text-[14px] text-slate-200 dark:text-slate-200 light:text-slate-800">
+      LinkedIn
+    </a>
+    <a href="https://github.com/bodapatlavinay" target="_blank" class="glass px-6 py-3 rounded-xl border border-white/20 dark:border-white/20 light:border-black/10 font-semibold text-[14px] text-slate-200 dark:text-slate-200 light:text-slate-800">
+      GitHub
+    </a>
+  </div>
+
+  <p class="text-[10px] font-mono text-slate-500 dark:text-slate-500 light:text-slate-500 mt-10">
+    Currently interviewing · Open to Sr. .NET / Full Stack / Cloud roles
+  </p>
+</section>
+
+<!-- =========================
+FOOTER
+========================= -->
+<footer class="pb-24 lg:pb-10 text-center text-[11px] text-slate-600 dark:text-slate-600 light:text-slate-500 font-mono">
+  © 2025 Vinay Kumar. Built with TailwindCSS, AOS, and strong coffee.
+</footer>
+
+<!-- AOS init -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: true });
+</script>
+
+<!-- Theme + mobile menu logic -->
+<script>
+  const bodyEl = document.body;
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  const themeBtnDesktop = document.getElementById('themeBtnDesktop');
+  const themeBtnMobile = document.getElementById('themeBtnMobile');
+
+  const themeIconDesktop = document.getElementById('themeIconDesktop');
+  const themeTextDesktop = document.getElementById('themeTextDesktop');
+
+  const themeIconMobile = document.getElementById('themeIconMobile');
+  const themeTextMobile = document.getElementById('themeTextMobile');
+
+  // --- Theme handling
+  function setTheme(isLight) {
+    if (isLight) {
+      bodyEl.classList.add('light');
+      bodyEl.classList.remove('dark');
+      themeIconDesktop.textContent = '☀️';
+      themeTextDesktop.textContent = 'Light';
+      if (themeIconMobile) { themeIconMobile.textContent = '☀️'; }
+      if (themeTextMobile) { themeTextMobile.textContent = 'Light'; }
+      localStorage.setItem('theme', 'light');
+    } else {
+      bodyEl.classList.remove('light');
+      bodyEl.classList.add('dark');
+      themeIconDesktop.textContent = '🌙';
+      themeTextDesktop.textContent = 'Dark';
+      if (themeIconMobile) { themeIconMobile.textContent = '🌙'; }
+      if (themeTextMobile) { themeTextMobile.textContent = 'Dark'; }
+      localStorage.setItem('theme', 'dark');
+    }
+  }
+
+  function toggleTheme() {
+    setTheme(!bodyEl.classList.contains('light'));
+  }
+
+  // Load saved theme
+  (function initTheme() {
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') {
+      setTheme(true);
+    } else {
+      setTheme(false);
+    }
+  })();
+
+  if (themeBtnDesktop) themeBtnDesktop.addEventListener('click', toggleTheme);
+  if (themeBtnMobile) themeBtnMobile.addEventListener('click', toggleTheme);
+
+  // --- Mobile menu
+  function toggleMenu() {
+    if (mobileMenu.classList.contains('hidden')) {
+      mobileMenu.classList.remove('hidden');
+    } else {
+      mobileMenu.classList.add('hidden');
+    }
+  }
+  window.toggleMenu = toggleMenu;
+</script>
+
 </body>
 </html>
