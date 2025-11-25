@@ -1,488 +1,364 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Vinay Kumar | Full Stack Engineer (.NET / React / Azure)</title>
+  <title>Vinay Kumar | Senior Full Stack Engineer</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
   <style>
-    :root {
-      --in-gradient: linear-gradient(90deg,#38bdf8,#7c3aed,#f59e0b);
-      --dark-bg: #0f172a;
-      --light-bg: #f8fafc;
-      --glass-light: rgba(255,255,255,0.7);
-      --glass-dark: rgba(15,23,42,0.6);
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background: #11161d; color: #e3e6ee; }
+    .navbar { background:#171c26; border-bottom:1.5px solid #23282f; }
+    .section { padding:56px 0; }
+    .container { max-width:960px; margin:auto; padding:0 24px;}
+    .card { background:#171c26; border:1px solid #222735; border-radius:16px; box-shadow:0 2px 16px #10132114; transition: box-shadow .3s, transform .3s;}
+    .card:hover { box-shadow:0 8px 32px #1765b8a9; transform:scale(1.025);}
+    .section-title { font-size:2.3em; font-weight:700; margin-bottom:22px; color: #38bdf8; }
+    .divider { height:2px; background: linear-gradient(90deg,#2d3748,#38bdf8,#2d3748); border-radius:1px; margin:46px 0; opacity:0.6; transition:opacity .8s;}
+    .avatar { width:120px;height:120px;border-radius:30px;object-fit:cover;border:3px solid #2c3446;box-shadow:0 2px 18px #134d6ec0;}
+    .avatar:hover { transform:scale(1.07);}
+    a.btn {background:#184e77;color:#e3e6ee;padding:12px 38px;border-radius:12px;font-weight:600;text-decoration:none;box-shadow:0 2px 12px #184e7733;transition:box-shadow .3s, transform .21s;}
+    a.btn:hover { background:#2889b7; box-shadow:0 8px 32px #3a86ff29; transform:scale(1.045);}
+    .highlight { color:#38bdf8; font-weight:600; }
+    .project-img { border-radius:12px; object-fit:cover; width:100%; height:130px; margin-bottom:18px; border:1.5px solid #243249;}
+    .skill-logos img, .skill-logos i { height:32px; width:32px; margin:6px 12px 6px 0; display:inline-block; vertical-align:middle; opacity:.88; }
+    .skill-logos i { font-size:33px; }
+    ul li, .text-gray-800, .text-gray-700, .text-gray-600, .text-gray-500 { color: #b5bee6 !important;}
+    .text-blue-300, .text-blue-200, .text-sm { color: #7dd3fc !important;}
+    .card-glass {
+      background: linear-gradient(115deg, rgba(37,56,116,0.26) 30%,rgba(71,30,84,0.18));
+      backdrop-filter: blur(13px);
+      border-radius: 24px;
+      border: 1.5px solid #38bdf8bb;
+      box-shadow: 0 6px 46px #101d2b26,0 1.5px 0 #38bdf8;
     }
-    body {
-      background: radial-gradient(circle at 20% 20%, rgba(99,102,241,0.18) 0%,rgba(0,0,0,0) 70%),
-                  radial-gradient(circle at 80% 30%, rgba(251,191,36,0.10) 0%,rgba(0,0,0,0) 60%),
-                  var(--dark-bg);
-      color: #e2e8f0;
-      font-family: 'Poppins',sans-serif;
-      transition: background .3s,color .3s;
+    .section, .card { color: #e3e6ee; }
+    @media(max-width:600px){
+      .section{padding:32px 0;}
+      .container{padding:0 7px;}
+      .section-title{font-size:1.5em;}
+      .project-img { height:100px; }
     }
-    body.light {
-      background: var(--light-bg);
-      color: #312e81;
-    }
-    .glass {
-      backdrop-filter: blur(16px);
-      background: var(--glass-dark);
-      border-radius: 17px;
-      border: 1.5px solid rgba(144, 97, 249, 0.10);
-      box-shadow: 0 4px 28px rgba(48,44,90,0.12);
-      transition: background .25s, border-color .3s;
-    }
-    body.light .glass {
-      background: var(--glass-light);
-      border-color: rgba(148,163,184,0.13);
-      color: #312e81;
-    }
-    .gtext {
-      background: var(--in-gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-    }
-    .btn-gradient {
-      background: var(--in-gradient);
-      color: #fff;
-      transition: .28s;
-      box-shadow: 0 6px 20px 0 rgba(123,75,229,0.09);
-      font-weight: 600;
-    }
-    .btn-gradient:hover { opacity: .85; transform: scale(1.05);}
-    .card-tilt {
-      transition: transform .39s cubic-bezier(.27,.82,.53,1), box-shadow .25s;
-    }
-    .card-tilt:hover { transform: translateY(-8px) scale(1.02); box-shadow:0 24px 62px rgba(0,0,0,0.15);}
-    .floating-bar a { transition: all .18s; }
-    .floating-bar a:hover { color: #fff; transform: translateX(6px) scale(1.07);}
-    .project-card img {
-      border-radius: 12px;
-      transition: filter .42s,transform .37s;
-      filter: grayscale(12%) brightness(98%);
-    }
-    .project-card:hover img {
-      filter: grayscale(0) brightness(103%);
-      transform: scale(1.045) rotate(-1deg);
-    }
-    .theme-toggle {
-      background: var(--in-gradient);
-      color: #fff;
-      border-radius: 100%;
-      width: 40px; height:40px;
-      border:none; outline:none;
-      box-shadow: 0 2px 14px 0 #4f46e5;
-      cursor:pointer;
-      font-size:1.3em;
-      transition:box-shadow .16s;
-      margin-right:9px;
-    }
-    /* Animated blobs in hero */
-    .blob, .blob2 {
-      filter: blur(60px);
-      opacity: 0.3;
-      z-index: 0;
-      pointer-events: none;
-      position: absolute;
-    }
-    .blob {
-      animation: blob 9s infinite linear;
-      background: #7c3aed4d;
-    }
-    .blob2 {
-      animation: blob2 11s infinite linear;
-      background: #f59e0bb3;
-    }
-    @keyframes blob {
-      0%   { transform: translate(0,0) scale(.98);}
-      33%  { transform: translate(40px,-30px) scale(1.22);}
-      66%  { transform: translate(-32px,18px) scale(.97);}
-      100% { transform: translate(0,0) scale(.98);}
-    }
-    @keyframes blob2 {
-      0%   { transform: translate(0,0) scale(1);}
-      33%  { transform: translate(-60px,14px) scale(1.18);}
-      66%  { transform: translate(23px,-33px) scale(0.89);}
-      100% { transform: translate(0,0) scale(1);}
-    }
-    .scroll-down { position:absolute;bottom:18px;left:50%;
-      transform:translateX(-50%); color:#c4c4c4;font-size:1.05em;opacity:.7;
-      animation:bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%,100% { transform:translate(-50%,0);}
-      50%{ transform:translate(-50%,-13px);}
-    }
-    @media (max-width:450px){
-      h1, .gtext{font-size:2.3em;font-weight:700;}
-      .floating-bar{display:none;}
-    }
-    a {text-decoration:none;}
   </style>
 </head>
-<body class="scroll-smooth dark">
+<body>
 <!-- NAVBAR -->
-<nav class="sticky top-0 z-40 glass border-b border-white/20">
-  <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
-    <a href="#home" class="font-extrabold gtext text-2xl">Vinay Kumar</a>
-    <div class="flex items-center gap-6 text-sm text-slate-300">
-      <a href="#about" class="hover:text-white">About</a>
-      <a href="#skills" class="hover:text-white">Skills</a>
-      <a href="#experience" class="hover:text-white">Experience</a>
-      <a href="#projects" class="hover:text-white">Projects</a>
-      <a href="#education" class="hover:text-white">Education</a>
-      <a href="#certs" class="hover:text-white">Certifications</a>
-      <a href="#contact" class="hover:text-white">Contact</a>
-      <button class="theme-toggle" id="themeToggle" title="Toggle theme">🌒</button>
+<nav class="navbar px-6 py-3">
+  <div class="container flex items-center justify-between">
+    <div class="text-xl font-bold highlight">Vinay Kumar</div>
+    <div class="flex gap-6 text-sm">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#testimonials">Testimonials</a>
+      <a href="#education">Education</a>
+      <a href="#certs">Certs</a>
+      <a href="#contact">Contact</a>
     </div>
-    <a href="#contact" class="hidden sm:inline-block btn-gradient px-4 py-2 rounded-full text-sm shadow-lg shadow-indigo-900/30">
-      Hire Me
-    </a>
   </div>
 </nav>
 
 <!-- HERO -->
-<header id="home" class="relative overflow-hidden py-24">
-  <div class="blob absolute -top-20 -left-10 w-72 h-72 rounded-full"></div>
-  <div class="blob2 absolute bottom-0 right-0 w-72 h-72 rounded-full"></div>
-  <section class="relative max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-    <!-- Left side -->
-    <div data-aos="fade-right" class="relative z-10">
-      <p class="uppercase tracking-[0.2em] text-xs text-slate-400 font-mono">Full Stack Engineer</p>
-      <h1 class="text-5xl font-extrabold mt-2 leading-tight gtext">
-        Vinay Kumar
-      </h1>
-      <div class="mt-4 flex flex-wrap gap-3 text-xs font-mono">
-        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">3+ yrs exp</span>
-        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">AI &amp; LLM Integration</span>
-        <span class="glass bg-slate-900/40 border border-white/10 rounded-md px-3 py-2 text-slate-200">↓30% latency</span>
+<section class="section relative overflow-hidden" id="home" data-aos="fade-in" style="min-height:480px;">
+  <div class="absolute top-[-70px] -left-36 w-[400px] h-[400px] rounded-full bg-gradient-to-tr from-sky-500/40 to-cyan-400/80 blur-3xl opacity-70 animate-pulse z-0"></div>
+  <div class="absolute bottom-[-90px] right-[-150px] w-[440px] h-[320px] bg-gradient-to-tr from-fuchsia-600/30 to-blue-400/40 blur-2xl rotate-12"></div>
+  <svg class="absolute top-32 right-10 z-0" viewBox="0 0 140 60" fill="none" width="180" height="80"><ellipse cx="70" cy="30" rx="66" ry="23" fill="#38bdf85c"/><ellipse cx="74" cy="38" rx="30" ry="11" fill="#f472b63a"/></svg>
+  <div class="container relative z-10 flex flex-col md:flex-row items-center gap-14 pt-7">
+    <div class="flex flex-col items-center md:items-start">
+      <div class="card-glass mb-5 p-4 flex flex-col items-center">
+        <img src="https://media.licdn.com/dms/image/v2/D4E03AQHBEVrP2TVxyA/profile-displayphoto-crop_800_800/B4EZkdo9.YKQAM-/0/1757138903274?e=1765411200&v=beta&t=L0LBMHyCW7IInZyd_FJNjM3DYk7VN_-xwlhqV_OJlSY" alt="Profile" class="avatar shadow"/>
       </div>
-      <p class="mt-6 text-slate-300 text-lg">
-        Full Stack Engineer with 3 years of experience delivering secure, scalable, and cloud-first applications using
-        <span class="font-semibold text-white">.NET Core, C#, Angular, React, Azure, and SQL</span>. Hands-on experience integrating large language models
-        (Azure OpenAI) into existing systems for text summarization, search augmentation, and assistant-style features.
-        Strong background in REST API development, microservices, authentication/authorization, CI/CD automation, and
-        modern front-end architectures. Comfortable working in healthcare and enterprise environments with a focus on
-        reliability, data integrity, and maintainable code.
-      </p>
-      <div class="mt-8 flex gap-4 flex-wrap">
-        <a href="#projects" class="btn-gradient px-5 py-3 rounded-xl shadow-lg shadow-indigo-900/40 font-medium">View Projects</a>
-        <a href="#contact" class="glass border border-white/20 px-5 py-3 rounded-xl font-medium">Contact</a>
-      </div>
-      <div class="mt-6 text-xs text-slate-400 font-mono leading-relaxed">
-        .NET Core • ASP.NET Web API • Angular 16 • React • Azure OpenAI • Azure Functions • Docker • Azure SQL
+      <div class="flex gap-2 mt-2">
+        <span class="px-3 py-1 text-xs rounded-full bg-blue-900/30 border border-cyan-400 text-cyan-300 shadow">Open to AI / Senior Roles</span>
+        <span class="px-3 py-1 text-xs rounded-full bg-purple-900/30 border border-fuchsia-300 text-fuchsia-300 shadow">Boston, MA</span>
       </div>
     </div>
-    <div class="relative z-10" data-aos="zoom-in">
-      <div class="aspect-square rounded-2xl bg-gradient-to-br from-indigo-500 to-amber-500 p-[2.5px] shadow-xl card-tilt">
-        <div class="w-full h-full rounded-2xl bg-slate-900 flex items-center justify-center">
-          <div class="grid grid-cols-3 gap-6 p-10 opacity-95">
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" alt=".NET Core"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" alt="Angular"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" alt="Docker"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-plain.svg" alt="Kubernetes"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" alt="Azure"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" alt="Redis"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" alt="SQL Server"/>
-            <img class="h-12 w-12" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java"/>
-          </div>
+    <div class="w-full max-w-xl text-center md:text-left">
+      <h1 class="section-title mb-2 text-4xl md:text-5xl font-extrabold tracking-tight flex gap-3 items-center">
+        Full Stack Engineer
+        <span class="ml-2 animate-bounce text-blue-400 text-3xl">🚀</span>
+      </h1>
+      <div class="flex flex-wrap gap-2 mb-3 justify-center md:justify-start">
+        <span class="inline-flex items-center bg-blue-700/20 border border-blue-400 rounded-full px-3 py-1 text-blue-200 text-xs font-bold mr-2"><i class="devicon-dotnetcore-plain" style="font-size:1.1em;margin-right:.3em"></i>.NET</span>
+        <span class="inline-flex items-center bg-red-400/10 border border-red-200 rounded-full px-3 py-1 text-red-200 text-xs font-bold mr-2"><i class="devicon-angularjs-plain" style="font-size:1.1em;margin-right:.3em"></i>Angular</span>
+        <span class="inline-flex items-center bg-indigo-400/10 border border-indigo-200 rounded-full px-3 py-1 text-indigo-100 text-xs font-bold mr-2"><i class="devicon-react-original" style="font-size:1.1em;margin-right:.3em"></i>React</span>
+        <span class="inline-flex items-center bg-cyan-400/10 border border-cyan-200 rounded-full px-3 py-1 text-cyan-100 text-xs font-bold"><i class="devicon-azure-plain" style="font-size:1.1em;margin-right:.3em"></i>Azure</span>
+      </div>
+      <p class="mb-5 text-blue-100 text-lg leading-relaxed max-w-2xl">
+        3+ years building secure, scalable, and cloud-first apps for enterprise & AI. Bridging modern UI/UX with robust backend, architecting intelligent systems from the ground up.
+      </p>
+      <ul class="flex flex-col gap-1 text-blue-200 text-sm mb-7 md:mb-6 md:text-base md:pl-4 text-left">
+        <li>• Built & launched full-stack AI products (resume analyzer, CRM, healthcare apps)</li>
+        <li>• Expert in rapid prototyping, API-first dev, and global deployments</li>
+      </ul>
+      <div class="flex gap-4 justify-center md:justify-start">
+        <a href="#projects" class="btn shadow-lg bg-gradient-to-tl from-blue-600 to-fuchsia-500 text-white border-blue-400 border-2 hover:from-fuchsia-600 hover:to-blue-400 hover:shadow-pink-400 hover:scale-110 transition-all">
+          <span class="font-semibold text-base tracking-wide">See Projects</span>
+        </a>
+        <a href="#contact" class="btn border border-blue-400 text-blue-200 bg-blue-800/30 hover:bg-fuchsia-800/30 hover:text-white font-semibold">Contact</a>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about" class="section relative overflow-hidden" data-aos="fade-up" style="min-height:380px;">
+  <svg class="absolute left-[-60px] top-0 z-0" width="190" height="180" viewBox="0 0 190 180" fill="none"><defs>
+    <radialGradient id="grad1" cx="50%" cy="50%" r="70%" fx="50%" fy="50%"><stop offset="0%" stop-color="#38bdf8" stop-opacity=".17"/><stop offset="100%" stop-color="#11161d" stop-opacity="0"/></radialGradient>
+    </defs>
+    <ellipse cx="90" cy="75" rx="85" ry="64" fill="url(#grad1)"/>
+    <ellipse cx="150" cy="120" rx="30" ry="20" fill="#f472b652"/>
+  </svg>
+  <div class="container relative z-10 card p-7 bg-gradient-to-br from-[#171c26] via-[#1f2937] to-[#243249] border border-blue-900/40 shadow-xl">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="text-2xl text-blue-400">👤</span>
+      <h2 class="section-title mb-0">About Me</h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div>
+        <p class="mb-5 text-blue-100 text-lg">Detail-driven engineer building scalable, high-impact web & AI solutions for CRM, healthcare, and SaaS. Love for automation, clean architectures, and elegant code.</p>
+        <ul class="ml-3 text-blue-200 list-disc list-inside space-y-1">
+          <li>Passionate about LLM, AI, frontend frameworks</li>
+          <li>Mentor and team collaborator</li>
+          <li>Committed to quality and maintainability</li>
+        </ul>
+      </div>
+      <div>
+        <div class="flex flex-wrap gap-3 mb-4 justify-center md:justify-start">
+          <span class="inline-flex items-center gap-2 px-4 py-1 rounded-xl bg-blue-900/40 border border-cyan-400 text-cyan-300 text-xs font-medium shadow">📍 Boston, MA</span>
+          <span class="inline-flex items-center gap-2 px-4 py-1 rounded-xl bg-gray-900/30 border border-blue-400 text-blue-200 text-xs font-medium shadow">⏳ 3+ Years</span>
+          <span class="inline-flex items-center gap-2 px-4 py-1 rounded-xl bg-purple-800/30 border border-fuchsia-300 text-fuchsia-200 text-xs font-medium shadow">⚡ Open to Sr./AI/Remote</span>
+        </div>
+        <div class="mt-7 text-blue-200 text-sm">
+          <strong>Email:</strong> bodapatlavinaykumarreddy@gmail.com <br/>
+          <strong>LinkedIn:</strong> linkedin.com/in/vinayreddy77 <br/>
+          <strong>GitHub:</strong> github.com/bodapatlavinay
         </div>
       </div>
     </div>
-    <span class="scroll-down">↓ Scroll Down</span>
-  </section>
-</header>
+  </div>
+</section>
+<div class="divider"></div>
 
-<!-- ABOUT -->
-<section id="about" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
-  <div class="grid md:grid-cols-3 gap-8">
-    <div class="md:col-span-2">
-      <h2 class="text-3xl font-bold mb-4 text-indigo-400 flex items-center gap-3">
-        <span>About Me</span>
-        <span class="text-[10px] font-mono text-slate-400 bg-slate-800/60 border border-white/10 rounded px-2 py-1">Available · Full-time / Contract</span>
-      </h2>
-      <p class="text-lg text-slate-300 leading-relaxed">
-        Full Stack Engineer with 3 years of experience delivering secure, scalable, and cloud-first applications using
-        .NET Core, C#, Angular, React, Azure, and SQL. I have hands-on experience integrating large language models
-        (Azure OpenAI) into existing systems for text summarization, search augmentation, and assistant-style features.
-        I bring a strong background in REST API development, microservices, authentication/authorization, CI/CD
-        automation, and modern front-end architectures, and I am comfortable working in healthcare and enterprise
-        environments with a focus on reliability, data integrity, and maintainable code.
-      </p>
-      <ul class="mt-6 grid sm:grid-cols-2 gap-3 text-sm text-slate-300">
-        <li>⚡ Reduced API latency by ~30% with Azure SQL tuning and indexing</li>
-        <li>🤖 Integrated Azure OpenAI GPT models into .NET Core CRM APIs</li>
-        <li>🔒 JWT auth, RBAC, secure secret storage with Azure Key Vault</li>
-        <li>🚀 Built CI/CD pipelines using Azure DevOps &amp; GitHub Actions</li>
-      </ul>
-    </div>
-    <div class="glass rounded-2xl p-6 border border-white/20" data-aos="fade-left">
-      <h3 class="font-semibold mb-3 text-amber-300">Quick Info</h3>
-      <div class="space-y-2 text-sm text-slate-300">
-        <p><span class="font-medium text-white">Location:</span> Boston, MA</p>
-        <p><span class="font-medium text-white">Experience:</span> 3+ years</p>
-        <p><span class="font-medium text-white">Open to:</span> Remote · Hybrid · CTH</p>
+<!-- SKILLS -->
+<section id="skills" class="section relative overflow-hidden" data-aos="fade-up">
+  <svg class="absolute bottom-0 right-[-60px] z-0" width="160" height="130"><ellipse cx="80" cy="60" rx="70" ry="40" fill="#38bdf842"/></svg>
+  <div class="container relative z-10">
+    <h2 class="section-title flex gap-2 items-center"><span>Technical Skills</span><span class="text-xl">🛠️</span></h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-7 font-semibold text-blue-200">
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <i class="devicon-dotnetcore-plain colored text-3xl mb-2"></i>
+        <div>.NET Core, ASP.NET</div>
       </div>
-      <a href="#contact" class="mt-5 inline-block btn-gradient px-4 py-2 rounded-lg text-sm font-medium shadow-lg shadow-indigo-900/30">Let’s Talk</a>
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <i class="devicon-angularjs-plain colored text-3xl mb-2"></i>
+        <div>Angular 16, RxJS</div>
+      </div>
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <i class="devicon-react-original colored text-3xl mb-2"></i>
+        <div>React.js, Redux</div>
+      </div>
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <i class="devicon-python-plain colored text-3xl mb-2"></i>
+        <div>Python, Flask</div>
+      </div>
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <i class="devicon-azure-plain colored text-3xl mb-2"></i>
+        <div>Azure, DevOps</div>
+      </div>
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <i class="devicon-docker-plain colored text-3xl mb-2"></i>
+        <div>Docker, CI/CD</div>
+      </div>
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <i class="devicon-microsoftsqlserver-plain colored text-3xl mb-2"></i>
+        <div>SQL Server</div>
+      </div>
+      <div class="card p-4 hover:scale-105 transition-all duration-200 flex flex-col items-center">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" class="h-8 w-8 mb-2"/>
+        <div>Jest, xUnit</div>
+      </div>
     </div>
+    <div class="mt-4 text-blue-200 text-sm">Specialties: Prompt Engineering, RAG, LLM, REST APIs, Cloud Automation</div>
   </div>
 </section>
-
-<!-- TECH STACK / SKILLS -->
-<section id="skills" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
-  <h2 class="text-3xl font-bold mb-10 text-purple-400 flex items-center gap-3">
-    <span>Tech Stack</span>
-    <span class="text-[10px] font-mono text-slate-400 bg-slate-800/60 border border-white/10 rounded px-2 py-1">From LaTeX Resume</span>
-  </h2>
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotnetcore/dotnetcore-original.svg" class="h-10 mx-auto" alt=".NET Core"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">.NET Core / ASP.NET</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" class="h-10 mx-auto" alt="React"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">React.js</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" class="h-10 mx-auto" alt="Angular"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">Angular 16</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg" class="h-10 mx-auto" alt="Azure"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">Azure (App Services, SQL)</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" class="h-10 mx-auto" alt="Docker"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">Docker</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/microsoftsqlserver/microsoftsqlserver-plain.svg" class="h-10 mx-auto" alt="SQL Server"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">SQL Server / Azure SQL</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" class="h-10 mx-auto" alt="Python"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">Python / Flask (basic)</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" class="h-10 mx-auto" alt="JS/TS"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">JavaScript / TypeScript</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" class="h-10 mx-auto" alt="Git"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">Git / Azure DevOps</p>
-    </div>
-    <div class="group glass rounded-xl p-5 border border-white/20 hover:scale-105 transition text-center">
-      <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg" class="h-10 mx-auto" alt="Oracle"/>
-      <p class="mt-3 text-sm text-slate-200 opacity-80 group-hover:opacity-100 font-medium">MySQL / Oracle SQL</p>
-    </div>
-  </div>
-
-  <!-- Detailed skills pulled from LaTeX -->
-  <div class="mt-10 space-y-2 text-sm text-slate-300">
-    <p><span class="font-semibold text-slate-100">AI / LLM:</span> Azure OpenAI, GPT-4/3.5 integration, embeddings, prompt engineering, RAG-style workflows (POC)</p>
-    <p><span class="font-semibold text-slate-100">Languages:</span> C#, Python, JavaScript, TypeScript, SQL</p>
-    <p><span class="font-semibold text-slate-100">Frameworks:</span> .NET Core, ASP.NET Web API, Entity Framework, Angular 16, React.js, Flask (basic)</p>
-    <p><span class="font-semibold text-slate-100">Cloud:</span> Azure App Services, Azure SQL, Azure Functions, Azure Key Vault</p>
-    <p><span class="font-semibold text-slate-100">DevOps:</span> Azure DevOps, Docker, GitHub Actions, CI/CD pipelines</p>
-    <p><span class="font-semibold text-slate-100">Databases:</span> SQL Server, Azure SQL, MySQL, Oracle SQL</p>
-    <p><span class="font-semibold text-slate-100">Testing:</span> NUnit, xUnit, Jest, React Testing Library</p>
-    <p><span class="font-semibold text-slate-100">Tools:</span> Swagger/OpenAPI, Postman, Git, Jira</p>
-  </div>
-</section>
+<div class="divider"></div>
 
 <!-- EXPERIENCE -->
-<section id="experience" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
-  <h2 class="text-3xl font-bold mb-10 text-rose-400 flex items-center gap-3">
-    <span>Work Experience</span>
-    <span class="text-[10px] font-mono text-slate-400 bg-slate-800/60 border border-white/10 rounded px-2 py-1">Synced with LaTeX</span>
-  </h2>
-  <div class="space-y-6">
-
-    <!-- Cortracker Inc -->
-    <div class="glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <div class="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 class="font-semibold text-xl text-purple-300">AI Integration Engineer (.NET / Azure) @ Cortracker Inc.</h3>
-        <span class="text-slate-400 text-xs font-mono">Jul 2024 – Present · Novi, MI</span>
+<section id="experience" class="section relative overflow-hidden" data-aos="fade-up">
+  <svg class="absolute left-0 top-0 z-0" width="160" height="160"><ellipse cx="80" cy="80" rx="70" ry="40" fill="#ad7ef86b"/></svg>
+  <div class="container relative z-10">
+    <h2 class="section-title flex gap-2 items-center"><span>Experience</span><span class="text-xl">💼</span></h2>
+    <div class="flex flex-col md:flex-row gap-8 items-start mt-10">
+      <div class="card p-5 w-full md:w-1/2 flex flex-col gap-2 border-l-4 border-blue-400 shadow-lg">
+        <div class="text-blue-400 font-bold text-lg flex gap-1 items-center">AI Integration Engineer <span>•</span> Cortracker Inc.</div>
+        <div class="text-blue-200 text-sm mb-1">Jul 2024–Present · Novi, MI</div>
+        <ul class="list-disc list-inside text-blue-200 text-sm ml-3">
+          <li>Azure OpenAI, .NET Core APIs, Angular CRM AI features</li>
+          <li>DevOps, Docker, RAG/embeddings, code reviews</li>
+        </ul>
       </div>
-      <ul class="mt-4 list-disc list-inside text-slate-300 text-sm leading-relaxed space-y-1.5">
-        <li>Integrated Azure OpenAI GPT models into .NET Core APIs to enable AI features such as CRM text summarization, auto-generated responses, and basic insight extraction.</li>
-        <li>Implemented embeddings-based search (POC) using Azure OpenAI to improve relevance when retrieving CRM records and knowledge content.</li>
-        <li>Prototyped simple RAG-style flows that combined retrieved CRM context with prompt templates to generate more contextual model responses.</li>
-        <li>Designed reusable prompt patterns for tasks like summarizing notes, drafting replies, and extracting key fields from free text.</li>
-        <li>Developed Angular 16 components to display AI-generated suggestions alongside existing CRM workflows without disrupting user experience.</li>
-        <li>Built and maintained REST APIs using ASP.NET Core and Swagger/OpenAPI to support both AI-related and core CRM functionality.</li>
-        <li>Optimized Azure SQL queries, indexing, and stored procedures, reducing latency on key endpoints by approximately 30%.</li>
-        <li>Containerized services using Docker and deployed them to Azure App Services with CI/CD pipelines in Azure DevOps.</li>
-        <li>Implemented JWT authentication, role-based access control (RBAC), and secure secret storage with Azure Key Vault.</li>
-        <li>Collaborated with product owners and stakeholders to prioritize AI features, validate behaviour, and refine prompts based on feedback.</li>
-        <li>Participated in sprint planning, code reviews, and troubleshooting sessions to maintain code quality and system stability.</li>
-      </ul>
-    </div>
-
-    <!-- Lance Soft Technology Services -->
-    <div class="glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <div class="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 class="font-semibold text-xl text-purple-300">Software Engineer (.NET &amp; React) @ Lance Soft Technology Services</h3>
-        <span class="text-slate-400 text-xs font-mono">Jan 2021 – Aug 2022 · India</span>
+      <div class="card p-5 w-full md:w-1/2 flex flex-col gap-2 border-l-4 border-pink-400 shadow-lg" data-aos="fade-right" data-aos-delay="120">
+        <div class="text-pink-400 font-bold text-lg flex gap-1 items-center">Software Engineer <span>•</span> Lance Soft Tech</div>
+        <div class="text-blue-200 text-sm mb-1">Jan 2021–Aug 2022 · India</div>
+        <ul class="list-disc list-inside text-blue-200 text-sm ml-3">
+          <li>ASP.NET Core APIs, React UI, SQL, CI/CD, agile team player</li>
+        </ul>
       </div>
-      <ul class="mt-4 list-disc list-inside text-slate-300 text-sm leading-relaxed space-y-1.5">
-        <li>Developed backend REST APIs using ASP.NET Core and Entity Framework for internal and client-facing web applications.</li>
-        <li>Built responsive React.js front-end modules using Hooks, Redux, and TypeScript integrated with .NET APIs.</li>
-        <li>Improved SQL Server performance by refactoring queries, tuning indexes, and optimizing stored procedures.</li>
-        <li>Implemented JWT-based authentication and role-based authorization across APIs and front-end routes.</li>
-        <li>Created reusable UI components and layouts to standardize look-and-feel and speed up feature delivery.</li>
-        <li>Wrote and maintained automated tests with xUnit, NUnit, and Jest to support stable releases.</li>
-        <li>Assisted in diagnosing production issues and implemented fixes to improve reliability and error handling.</li>
-        <li>Maintained CI/CD pipelines using Azure DevOps and GitHub Actions to streamline build and deployment.</li>
-        <li>Collaborated in Agile teams, contributing to sprint planning, daily stand-ups, and retrospectives.</li>
-        <li>Documented API contracts, technical decisions, and common patterns for internal developer onboarding.</li>
-      </ul>
     </div>
   </div>
 </section>
+<div class="divider"></div>
 
-<!-- PROJECTS (Master's + Other Projects) -->
-<section id="projects" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
-  <h2 class="text-3xl font-bold mb-10 text-green-400 flex items-center gap-3">
-    <span>Projects</span>
-    <span class="text-[10px] font-mono text-slate-400 bg-slate-800/60 border border-white/10 rounded px-2 py-1">Master&apos;s &amp; Personal</span>
-  </h2>
-  <div class="grid md:grid-cols-2 gap-10">
-
-    <!-- Clinical Documentation Summarization Tool -->
-    <div class="project-card glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <img src="https://images.pexels.com/photos/7578801/pexels-photo-7578801.jpeg?auto=compress&cs=tinysrgb&w=800" class="rounded-lg mb-4 w-full h-40 object-cover object-center" alt="Clinical Documentation Summarization Tool"/>
-      <h3 class="text-xl font-semibold text-amber-300">Clinical Documentation Summarization Tool</h3>
-      <p class="text-slate-300 mt-2 text-sm leading-relaxed">
-        Prototype tool to summarize long-form clinical-style notes using Azure OpenAI GPT models to reduce manual review effort.
-        A Flask API accepts raw text, builds prompts, calls Azure OpenAI, and returns structured summaries. A basic Angular UI
-        lets users paste notes and view summaries side-by-side, with Python logic highlighting diagnoses, medications, and follow-up items.
-      </p>
-      <p class="text-slate-400 text-xs font-mono mt-2">Tech: Python · Azure OpenAI · Flask · Angular</p>
-    </div>
-
-    <!-- CRM Knowledge Search Assistant (RAG POC) -->
-    <div class="project-card glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <img src="https://images.pexels.com/photos/6120218/pexels-photo-6120218.jpeg?auto=compress&cs=tinysrgb&w=800" class="rounded-lg mb-4 w-full h-40 object-cover object-center" alt="CRM Knowledge Search Assistant"/>
-      <h3 class="text-xl font-semibold text-amber-300">CRM Knowledge Search Assistant (RAG POC)</h3>
-      <p class="text-slate-300 mt-2 text-sm leading-relaxed">
-        Experimented with Azure OpenAI embeddings to index CRM-like FAQs and support docs for semantic search. Implemented a Python retrieval
-        flow that performs similarity search over stored vectors and feeds results into GPT prompts. A .NET Core API orchestrates the pipeline
-        and returns combined search + generated answers to the UI.
-      </p>
-      <p class="text-slate-400 text-xs font-mono mt-2">Tech: Python · Azure OpenAI · .NET Core</p>
-    </div>
-
-    <!-- Student Management System -->
-    <div class="project-card glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <img src="https://www.powerschool.com/wp-content/uploads/2025/02/student-management-system-blog-thumbnail-1432625-1.webp" class="rounded-lg mb-4 w-full h-40 object-cover object-center" alt="Student Management System"/>
-      <h3 class="text-xl font-semibold text-amber-300">Student Management System</h3>
-      <p class="text-slate-300 mt-2 text-sm leading-relaxed">
-        Developed role-based modules for managing student records, courses, and performance reports. Optimized SQL queries and stored procedures
-        to improve report generation and page-load times, and deployed the application to Azure App Services with basic CI/CD for updates and fixes.
-      </p>
-      <p class="text-slate-400 text-xs font-mono mt-2">Tech: ASP.NET MVC · C# · SQL Server · Azure</p>
-    </div>
-
-    <!-- Healthcare Web Application -->
-    <div class="project-card glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <img src="https://imageio.forbes.com/specials-images/imageserve/651bbeb1c78cc403f92a6abd/The-10-Biggest-Trends-Revolutionizing-Healthcare-In-2024/0x0.jpg?crop=2500,1405,x0,y0,safe&height=399&width=711&fit=bounds" class="rounded-lg mb-4 w-full h-40 object-cover object-center" alt="Healthcare App"/>
-      <h3 class="text-xl font-semibold text-amber-300">Healthcare Web Application</h3>
-      <p class="text-slate-300 mt-2 text-sm leading-relaxed">
-        Built core patient management workflows including registration, appointments, and dashboard views. Implemented secure authentication and
-        authorization for different roles (admin, clinician) and containerized the application with Docker to prepare it for cloud deployment.
-      </p>
-      <p class="text-slate-400 text-xs font-mono mt-2">Tech: .NET Core · Angular · SQL Server · Docker</p>
-    </div>
-
-    <!-- Sales Insights Dashboard (kept from original site) -->
-    <div class="project-card glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <img src="https://cdn.prod.website-files.com/645258dee17c72222bca47d8/66c48c8af399590bff735f6a_dbc1b969-0028-4499-9d0a-ffa5ba3e3b6b.png" class="rounded-lg mb-4 w-full h-40 object-cover object-center" alt="Sales Insights Dashboard"/>
-      <h3 class="text-xl font-semibold text-amber-300">Sales Insights Dashboard</h3>
-      <p class="text-slate-300 mt-2 text-sm leading-relaxed">
-        React-based analytics dashboards backed by SQL and Python that forecast quarterly trends (~92% accuracy) and cut manual reporting
-        effort by around 50% through self-service visualizations and drill-down views.
-      </p>
-      <p class="text-slate-400 text-xs font-mono mt-2">Tech: React · Power BI · SQL · Python</p>
-    </div>
-
-    <!-- FitTribe (kept from original site) -->
-    <div class="project-card glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <img src="https://t3.ftcdn.net/jpg/04/29/35/62/360_F_429356296_CVQ5LkC6Pl55kUNLqLisVKgTw9vjyif1.jpg" class="rounded-lg mb-4 w-full h-40 object-cover object-center" alt="FitTribe"/>
-      <h3 class="text-xl font-semibold text-amber-300">FitTribe (In Progress)</h3>
-      <p class="text-slate-300 mt-2 text-sm leading-relaxed">
-        Social fitness app with progress tracking, team challenges, and leaderboard-style dashboards. Designed for engagement and community
-        motivation with a modern React + Tailwind front end.
-      </p>
-      <p class="text-slate-400 text-xs font-mono mt-2">Tech: React · TailwindCSS · Node.js</p>
-    </div>
-
-    <!-- Gas Station / Auto Repair Website (kept from original) -->
-    <div class="project-card glass p-6 border border-white/20 rounded-2xl card-tilt md:col-span-2">
-      <img src="https://cdn.dribbble.com/userupload/20786017/file/original-6c0a477bbf60469040d65b38c48ab849.jpg?resize=400x0" class="rounded-lg mb-4 w-full h-48 object-cover object-center" alt="Gas Station / Auto Repair Website"/>
-      <h3 class="text-xl font-semibold text-amber-300">Auto Care Service &amp; Gas Station Website</h3>
-      <p class="text-slate-300 mt-2 text-sm leading-relaxed">
-        Fully responsive business website for a local gas station and auto repair shop. Built with TailwindCSS and HTML5, featuring optimized
-        service pages, contact options, and clear calls-to-action to drive real customers. Focused on mobile-first layout, trust, and search visibility.
-      </p>
-      <p class="text-slate-400 text-xs font-mono mt-2">Tech: HTML5 · TailwindCSS · Responsive Design · SEO Optimization</p>
-      <a href="https://bodapatlavinay.github.io/GasStationWebsite/" target="_blank" class="mt-4 inline-block btn-gradient px-4 py-2 rounded-lg text-sm font-medium shadow-lg shadow-indigo-900/30">View Live →</a>
+<!-- PROJECTS -->
+<section id="projects" class="section relative overflow-hidden" data-aos="fade-up">
+  <svg class="absolute right-0 bottom-0 z-0" width="210" height="150"><ellipse cx="100" cy="80" rx="90" ry="45" fill="#f472b63b"/></svg>
+  <div class="container relative z-10">
+    <h2 class="section-title flex gap-2 items-center">
+      <span>Projects</span><span class="text-xl">✨</span>
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-9">
+      <div class="card p-6 hover:scale-105 hover:shadow-indigo-500/60 transition-all duration-200">
+        <img src="https://www.sectorlink.com/img/blog/Website-Analytics.png" alt="Resume Analyzer" class="project-img hover:scale-104 transition duration-150"/>
+        <div class="font-bold highlight mb-1">Resume AI Analyzer Tool & Job Matcher</div>
+        <div class="flex gap-2 mb-1 mt-1">
+          <i class="devicon-angularjs-plain colored"></i>
+          <i class="devicon-python-plain colored"></i>
+          <i class="devicon-fastapi-plain"></i>
+          <i class="devicon-github-original"></i>
+        </div>
+        <div class="text-sm text-blue-200">ATS feedback, skill gap, JD match. Angular/AI dashboard.</div>
+      </div>
+      <div class="card p-6 hover:scale-105 hover:shadow-fuchsia-500/60 transition-all duration-200">
+        <img src="https://karankrishnani.com/images/data-analytics.jpeg" alt="CRM Predictor" class="project-img hover:scale-104 transition duration-150"/>
+        <div class="font-bold highlight mb-1">Lead Predictor</div>
+        <div class="flex gap-2 mb-1 mt-1">
+          <i class="devicon-dotnetcore-plain colored"></i>
+          <i class="devicon-python-plain colored"></i>
+          <i class="devicon-angularjs-plain colored"></i>
+        </div>
+        <div class="text-sm text-blue-200">AI-based sales lead scores. (Angular/.NET, Python, Docker, Azure)</div>
+      </div>
+      <div class="card p-6 hover:scale-105 hover:shadow-blue-900/40 transition-all duration-200">
+        <img src="https://cdn.analyticsvidhya.com/wp-content/uploads/2021/11/A-beginners-guide-to-understanding-Text-Summarization-with-NLP.webp" alt="Clinical Documentation" class="project-img hover:scale-104 transition duration-150"/>
+        <div class="font-bold highlight mb-1">Document Summarization Tool</div>
+        <div class="flex gap-2 mb-1 mt-1">
+          <i class="devicon-python-plain colored"></i>
+          <i class="devicon-angularjs-plain colored"></i>
+        </div>
+        <div class="text-sm text-blue-200">LLM summary of clinical notes, Angular UI for previews/templates.</div>
+      </div>
+      <div class="card p-6 hover:scale-105 hover:shadow-pink-600/40 transition-all duration-200">
+        <img src="https://images.pexels.com/photos/6120218/pexels-photo-6120218.jpeg?auto=compress&w=600&h=130&fit=crop" alt="CRM Knowledge Search" class="project-img hover:scale-104 transition duration-150"/>
+        <div class="font-bold highlight mb-1">CRM Knowledge Search Assistant (RAG POC)</div>
+        <div class="flex gap-2 mb-1 mt-1">
+          <i class="devicon-python-plain colored"></i>
+          <i class="devicon-dotnetcore-plain colored"></i>
+        </div>
+        <div class="text-sm text-blue-200">Embeddings-based search and RAG pipeline for knowledge retrieval.</div>
+      </div>
+      <div class="card p-6 hover:scale-105 hover:shadow-indigo-500/40 transition-all duration-200">
+        <img src="https://www.powerschool.com/wp-content/uploads/2025/02/student-management-system-blog-thumbnail-1432625-1.webp" alt="Student Management" class="project-img hover:scale-104 transition duration-150"/>
+        <div class="font-bold highlight mb-1">Student Management System</div>
+        <div class="flex gap-2 mb-1 mt-1">
+          <i class="devicon-dotnetcore-plain colored"></i>
+          <i class="devicon-microsoftsqlserver-plain colored"></i>
+        </div>
+        <div class="text-sm text-blue-200">Role-based dashboards, reporting, Azure CI/CD.</div>
+      </div>
+      <div class="card p-6 hover:scale-105 hover:shadow-lime-400 transition-all duration-200">
+        <img src="https://t3.ftcdn.net/jpg/04/29/35/62/360_F_429356296_CVQ5LkC6Pl55kUNLqLisVKgTw9vjyif1.jpg" alt="FitTribe" class="project-img hover:scale-104 transition duration-150"/>
+        <div class="font-bold highlight mb-1">FitTribe (Social Fitness App)</div>
+        <div class="flex gap-2 mb-1 mt-1">
+          <i class="devicon-react-original colored"></i>
+        </div>
+        <div class="text-sm text-blue-200">Leaderboards, progress tracking, team/solo challenge, secure auth.</div>
+      </div>
     </div>
   </div>
 </section>
+<div class="divider"></div>
 
 <!-- EDUCATION -->
-<section id="education" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
-  <h2 class="text-3xl font-bold mb-10 text-cyan-400">Education</h2>
-  <div class="space-y-6">
-    <div class="glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <h3 class="font-semibold text-xl text-purple-300">Master of Science in Computer and Information Technology</h3>
-      <span class="text-slate-300 text-sm">Lindsey Wilson College · KY, United States · 2024</span>
-    </div>
-    <div class="glass p-6 border border-white/20 rounded-2xl card-tilt">
-      <h3 class="font-semibold text-xl text-purple-300">Bachelor of Technology in Mechanical Engineering</h3>
-      <span class="text-slate-300 text-sm">Kommuri Pratap Reddy Institute of Technology · Hyderabad, India · 2021</span>
-    </div>
+<section id="education" class="section" data-aos="fade-up">
+  <div class="container card p-7 bg-gradient-to-br from-[#171c26] via-[#1f2937] to-[#243249] shadow-xl border border-blue-900/35">
+    <h2 class="section-title flex gap-2 items-center"><span>Education</span><span class="text-xl">🎓</span></h2>
+    <ul class="pl-5">
+      <li class="mb-2">
+        <span class="font-bold highlight">Master's in Information Technology</span>
+        <div class="inline bg-blue-900/40 border border-blue-400 text-blue-200 rounded-full px-3 py-1 text-xs ml-2">2024</div>
+        <div class="text-sm text-blue-200">Lindsey Wilson College, KY, USA</div>
+      </li>
+      <li>
+        <span class="font-bold highlight">B.Tech Mechanical Engineering</span>
+        <div class="inline bg-purple-900/30 border border-fuchsia-300 text-fuchsia-200 rounded-full px-3 py-1 text-xs ml-2">2021</div>
+        <div class="text-sm text-blue-200">KPR Institute, Hyderabad, India</div>
+      </li>
+    </ul>
   </div>
 </section>
+<div class="divider"></div>
 
 <!-- CERTIFICATIONS -->
-<section id="certs" class="max-w-7xl mx-auto px-6 py-20" data-aos="fade-up">
-  <h2 class="text-3xl font-bold mb-10 text-pink-400">Certifications</h2>
-  <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6 text-sm">
-    <div class="glass p-5 border border-white/20 rounded-xl card-tilt text-slate-300">Azure DevOps Fundamentals — Coursera</div>
-    <div class="glass p-5 border border-white/20 rounded-xl card-tilt text-slate-300">React (Hooks &amp; Redux) — Udemy</div>
-    <div class="glass p-5 border border-white/20 rounded-xl card-tilt text-slate-300">Angular 16 — Udemy</div>
-    <div class="glass p-5 border border-white/20 rounded-xl card-tilt text-slate-300">Docker &amp; Kubernetes — Udemy</div>
-    <div class="glass p-5 border border-white/20 rounded-xl card-tilt text-slate-300">Power BI for Developers — LinkedIn Learning</div>
+<section id="certs" class="section" data-aos="fade-up">
+  <div class="container card p-7 bg-gradient-to-br from-blue-900/30 to-purple-900/20 shadow-lg border border-blue-900/30">
+    <h2 class="section-title flex gap-2 items-center"><span>Certifications</span><span class="text-xl">🏆</span></h2>
+    <div class="grid md:grid-cols-3 gap-4 mt-1 text-sm font-semibold text-blue-200">
+      <div class="card p-3 border border-blue-400/20 bg-blue-950/20" data-aos="fade-in">Azure DevOps Fundamentals — Coursera</div>
+      <div class="card p-3 border border-fuchsia-400/20 bg-fuchsia-950/20" data-aos="fade-in" data-aos-delay="80">React (Hooks, Redux) — Udemy</div>
+      <div class="card p-3 border border-indigo-400/20 bg-indigo-950/20" data-aos="fade-in" data-aos-delay="140">Angular 16 — Udemy</div>
+      <div class="card p-3 border border-blue-400/20 bg-blue-950/20" data-aos="fade-in" data-aos-delay="220">Docker & Kubernetes — Udemy</div>
+      <div class="card p-3 border border-pink-400/20 bg-pink-950/20" data-aos="fade-in" data-aos-delay="290">Power BI for Developers — LinkedIn Learning</div>
+    </div>
   </div>
 </section>
+<div class="divider"></div>
 
 <!-- CONTACT -->
-<section id="contact" class="max-w-7xl mx-auto px-6 py-24 text-center" data-aos="fade-up">
-  <h2 class="text-3xl font-bold mb-4 text-lime-400">Get in Touch</h2>
-  <p class="text-slate-300 mb-8 max-w-xl mx-auto">
-    Let’s build something high-impact. Email me or connect through LinkedIn / GitHub.
-  </p>
-  <div class="flex flex-col sm:flex-row justify-center gap-4">
-    <a href="mailto:bodapatlavinaykumarreddy@gmail.com" class="btn-gradient px-6 py-3 rounded-xl font-medium shadow-lg shadow-indigo-900/30">Email</a>
-    <a href="https://www.linkedin.com/in/vinayreddy77" target="_blank" class="glass px-6 py-3 rounded-xl border border-white/20 font-medium">LinkedIn</a>
-    <a href="https://github.com/bodapatlavinay" target="_blank" class="glass px-6 py-3 rounded-xl border border-white/20 font-medium">GitHub</a>
+<section id="contact" class="section" data-aos="fade-in">
+  <div class="container card p-7 text-center bg-gradient-to-br from-blue-950/40 to-purple-900/20">
+    <h2 class="section-title flex gap-2 items-center"><span>Contact</span><span class="text-xl">✉️</span></h2>
+    <div class="mb-4 text-base text-blue-200">Open to senior .NET, AI, or full stack developer positions, consulting, and remote collaborations.</div>
+    <form class="max-w-md mx-auto text-left p-4">
+      <div class="mb-3">
+        <label for="name" class="block mb-1 font-semibold text-sm text-blue-200">Name</label>
+        <input id="name" name="name" type="text" class="w-full border border-blue-700 rounded-lg px-3 py-2 bg-[#171c26] text-blue-200" placeholder="Your Name"/>
+      </div>
+      <div class="mb-3">
+        <label for="email" class="block mb-1 font-semibold text-sm text-blue-200">Email</label>
+        <input id="email" name="email" type="email" class="w-full border border-blue-700 rounded-lg px-3 py-2 bg-[#171c26] text-blue-200" placeholder="you@email.com"/>
+      </div>
+      <div class="mb-3">
+        <label for="message" class="block mb-1 font-semibold text-sm text-blue-200">Message</label>
+        <textarea id="message" name="message" class="w-full border border-blue-700 rounded-lg px-3 py-2 bg-[#171c26] text-blue-200" placeholder="Let's connect!"></textarea>
+      </div>
+      <button disabled class="btn w-full mt-2 cursor-not-allowed opacity-80">Send (demo)</button>
+      <div class="text-xs text-blue-200 mt-2">Or reach out directly:</div>
+      <div class="flex gap-3 justify-center mt-2">
+        <a href="mailto:bodapatlavinaykumarreddy@gmail.com" class="btn">Email</a>
+        <a href="https://www.linkedin.com/in/vinayreddy77" class="btn">LinkedIn</a>
+        <a href="https://github.com/bodapatlavinay" class="btn">GitHub</a>
+      </div>
+    </form>
   </div>
-  <p class="text-[10px] font-mono text-slate-500 mt-10">Currently interviewing · Open to Sr. .NET / Full Stack / Cloud / AI roles</p>
 </section>
 
-<footer class="pb-10 text-center text-[11px] text-slate-600 font-mono">
-
+<footer class="py-8 text-center text-sm text-blue-200">
+  &copy; Vinay Kumar | Professional Portfolio
 </footer>
-
-<!-- scripts -->
+<script>
+  AOS.init({ once: true, duration: 940, easing:'ease-in-out' });
+  window.addEventListener('scroll',()=>{
+    document.querySelectorAll('.divider').forEach(div=>{
+      div.style.opacity='0.6';
+      setTimeout(()=>div.style.opacity='1', 300);
+    });
+  });
+</script>
 </body>
 </html>
